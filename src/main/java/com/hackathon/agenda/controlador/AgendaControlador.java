@@ -1,7 +1,8 @@
-package org.hackathon.agenda.controlador;
-import org.hackathon.agenda.modelo.Agenda;
-import org.hackathon.agenda.modelo.Contacto;
-import org.hackathon.agenda.vista.VentanaPrincipal;
+package com.hackathon.agenda.controlador;
+
+import com.hackathon.agenda.modelo.Agenda;
+import com.hackathon.agenda.modelo.Contacto;
+import com.hackathon.agenda.vista.VentanaPrincipal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
