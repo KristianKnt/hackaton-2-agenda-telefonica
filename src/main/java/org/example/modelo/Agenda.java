@@ -34,7 +34,8 @@ public class Agenda {
         return contactos.contains(c);
     }
 
-    private static final String REGEX_TELEFONO = "^(\\+\\d{1,3} ?)?\\d{3} ?\\d{3} ?\\d{3}$";
+    // Formato colombiano: 3XXXXXXXXX, con +57 opcional
+    private static final String REGEX_TELEFONO = "^(?:\\+57\\s?)?3[0-9]{9}$";
 
     private boolean telefonoValido(String telefono) {
         return telefono != null && telefono.matches(REGEX_TELEFONO);
