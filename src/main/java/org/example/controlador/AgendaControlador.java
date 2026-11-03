@@ -103,6 +103,24 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
         }
     }
 
+    private void buscarContacto() {
+        String nombre = vista.getNombre();
+        String apellido = vista.getApellido();
+
+        if (nombre.isEmpty() || apellido.isEmpty()) {
+            vista.mostrarError("Ingrese nombre y apellido para buscar.");
+            return;
+        }
+
+        String telefonoEncontrado = modelo.buscarContacto(nombre, apellido);
+        if (telefonoEncontrado != null && !telefonoEncontrado.isEmpty()) {
+            vista.setTelefono(telefonoEncontrado);
+            vista.mostrarExito("Contacto encontrado. Telefono: " + telefonoEncontrado);
+        } else {
+            vista.mostrarError("No se encontró ningún contacto con ese nombre y apellido.");
+        }
+    }
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
