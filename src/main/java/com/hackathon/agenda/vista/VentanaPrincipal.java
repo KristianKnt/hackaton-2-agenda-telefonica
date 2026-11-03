@@ -44,7 +44,7 @@ public class VentanaPrincipal extends JFrame {
 
     public VentanaPrincipal() {
         super("Agenda telefónica");
-        txtTelefono.setToolTipText("Ejemplos: 600000000 o +34 600 000 000");
+        txtTelefono.setToolTipText("Ejemplos: 3001234567 o +57 3001234567");
         ComponentesGraficos.estilizarTabla(tabla);
         configurarSeleccionDeFila();
 

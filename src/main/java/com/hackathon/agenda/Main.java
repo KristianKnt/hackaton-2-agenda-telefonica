@@ -1,5 +1,6 @@
 package com.hackathon.agenda;
-
+// llamamos la importaciones de el MVC
+import com.hackathon.agenda.controlador.AgendaControlador;
 import com.hackathon.agenda.modelo.Agenda;
 import com.hackathon.agenda.vista.VentanaPrincipal;
 
@@ -18,6 +19,7 @@ public class Main {
       VentanaPrincipal vista = new VentanaPrincipal();
 
       // Aquí instanciaremos el controlador
+      new AgendaControlador(agenda, vista);
 
       // Mostrar la ventana
       vista.setVisible(true);
