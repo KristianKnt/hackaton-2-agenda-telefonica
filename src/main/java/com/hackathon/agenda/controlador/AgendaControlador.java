@@ -45,38 +45,19 @@ public class AgendaControlador implements ActionListener {
     }
 
     private void anadirContacto() {
-
         String nombre = vista.getNombre();
         String apellido = vista.getApellido();
         String telefono = vista.getTelefono();
 
-        if (nombre.isEmpty() || apellido.isEmpty()) {
-            vista.mostrarError("El nombre y apellido son obligatorios");
-            return;
-        }
-
-        if (modelo.agendaLlena()) {
-            vista.mostrarError("La agenda esta llena. Ya no puedes agregar más contactos");
-            return;
-        }
-
         try {
             Contacto nuevoContacto = new Contacto(nombre, apellido, telefono);
-            if (modelo.existeContacto(nuevoContacto)) {
-                vista.mostrarError("El contacto ya existe en la agenda.");
-                return;
-            }
+            modelo.añadirContacto(nuevoContacto);
+            actualizarVentana();
+            vista.limpiarCampos();
+            vista.mostrarExito("Contacto añadido correctamente.");
 
-            boolean agregado = modelo.añadirContacto(nuevoContacto);
-            if (agregado) {
-                actualizarVentana();
-                vista.limpiarCampos();
-                vista.mostrarExito("Contacto añadido correctamente.");
-            } else {
-                vista.mostrarError("No se pudo añadir el contacto.");
-            }
         } catch (IllegalArgumentException ex) {
-            vista.mostrarError("Error en formato de datos: " + ex.getMessage());
+            vista.mostrarError(ex.getMessage());
         }
     }
 
@@ -85,22 +66,13 @@ public class AgendaControlador implements ActionListener {
         String apellido = vista.getApellido();
         String nuevoTelefono = vista.getTelefono();
 
-        if (nombre.isEmpty() || apellido.isEmpty()) {
-            vista.mostrarError("Debe indicar el nombre y apellido del contacto a modificar.");
-            return;
-        }
-
         try {
-            boolean modificado = modelo.modificarTelefono(nombre, apellido, nuevoTelefono);
-            if (modificado) {
-                actualizarVentana();
-                vista.limpiarCampos();
-                vista.mostrarExito("Telefono modificado correctamente.");
-            } else {
-                vista.mostrarError("Contacto no encontrado para modificar.");
-            }
+            modelo.modificarTelefono(nombre, apellido, nuevoTelefono);
+            actualizarVentana();
+            vista.limpiarCampos();
+            vista.mostrarExito("Teléfono modificado correctamente.");
         } catch (IllegalArgumentException ex) {
-            vista.mostrarError("Error en formato de telefono: " + ex.getMessage());
+            vista.mostrarError(ex.getMessage());
         }
     }
 
@@ -154,12 +126,13 @@ public class AgendaControlador implements ActionListener {
     }
 
     private void actualizarVentana() {
-        vista.actualizarEspacios(modelo.espaciosLibres(), modelo.getTamanoMaximo());
+        List<Contacto> lista = modelo.listarContactos();
 
-        List<Contacto> contactos = modelo.listarContactos();
+        int capacidadTotal = lista.size() + modelo.espaciosLibres();
+        vista.actualizarEspacios(modelo.espaciosLibres(), capacidadTotal);
 
         List<String[]> datosTabla = new ArrayList<>();
-        for (Contacto c : contactos) {
+        for (Contacto c : lista) {
             datosTabla.add(new String[]{c.getNombre(), c.getApellido(), c.getTelefono()});
         }
 
