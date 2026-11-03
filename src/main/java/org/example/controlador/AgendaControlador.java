@@ -121,6 +121,31 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
         }
     }
 
+    private void eliminarContacto() {
+        String nombre = vista.getNombre();
+        String apellido = vista.getApellido();
+        String telefono = vista.getTelefono();
+
+        if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty()) {
+            vista.mostrarError("Seleccione un contacto para eliminarlo.");
+            return;
+        }
+
+        try {
+            Contacto contacto = new Contacto(nombre, apellido, telefono);
+            boolean eliminado = modelo.eliminarContacto(contacto);
+
+            if (eliminado) {
+                vista.limpiarCampos();
+                vista.mostrarExito("Contacto eliminado con éxito.");
+            } else {
+                vista.mostrarError("El contacto no existe en la agenda.");
+            }
+        } catch (IllegalArgumentException ex) {
+            vista.mostrarError("Error al eliminar: " + ex.getMessage());
+        }
+    }
+
     private void limpiarCampos() {
         vista.limpiarCampos();
         vista.mostrarExito("Campos del formulario limpios.");
@@ -130,6 +155,5 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
     public void valueChanged(ListSelectionEvent e) {
 
     }
-
 
 }
