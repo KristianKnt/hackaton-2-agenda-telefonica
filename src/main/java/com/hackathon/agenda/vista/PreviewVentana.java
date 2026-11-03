@@ -1,4 +1,4 @@
-package org.example.vista;
+package com.hackathon.agenda.vista;
 
 import javax.swing.SwingUtilities;
 import java.util.ArrayList;
