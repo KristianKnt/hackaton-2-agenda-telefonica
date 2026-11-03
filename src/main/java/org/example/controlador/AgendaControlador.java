@@ -32,8 +32,10 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
     public void actionPerformed(ActionEvent e) {
         Object btnOrigen = e.getSource();
 
-        if(btnOrigen == vista.getBtnAnadir()){
+        if (btnOrigen == vista.getBtnAnadir()) {
             anadirContacto();
+        } else if (btnOrigen == vista.getBtnModificar()) {
+            modificarTelefono();
         }
     }
 
@@ -43,18 +45,18 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
         String apellido = vista.getApellido();
         String telefono = vista.getTelefono();
 
-        if(nombre.isEmpty() || apellido.isEmpty()){
+        if (nombre.isEmpty() || apellido.isEmpty()) {
             vista.mostrarError("El nombre y apellido son obligatorios");
             return;
         }
 
-        if(modelo.agendaLlena()){
+        if (modelo.agendaLlena()) {
             vista.mostrarError("La agenda esta llena. Ya no puedes agregar más contactos");
             return;
         }
 
-        try{
-            Contacto  nuevoContacto = new Contacto(nombre, apellido, telefono);
+        try {
+            Contacto nuevoContacto = new Contacto(nombre, apellido, telefono);
             if (modelo.existeContacto(nuevoContacto)) {
                 vista.mostrarError("El contacto ya existe en la agenda.");
                 return;
@@ -69,6 +71,29 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
             }
         } catch (IllegalArgumentException ex) {
             vista.mostrarError("Error en formato de datos: " + ex.getMessage());
+        }
+    }
+
+    private void modificarTelefono() {
+        String nombre = vista.getNombre();
+        String apellido = vista.getApellido();
+        String nuevoTelefono = vista.getTelefono();
+
+        if (nombre.isEmpty() || apellido.isEmpty()) {
+            vista.mostrarError("Debe indicar el nombre y apellido del contacto a modificar.");
+            return;
+        }
+
+        try {
+            boolean modificado = modelo.modificarTelefono(nombre, apellido, nuevoTelefono);
+            if (modificado) {
+                vista.limpiarCampos();
+                vista.mostrarExito("Telefono modificado correctamente.");
+            } else {
+                vista.mostrarError("Contacto no encontrado para modificar.");
+            }
+        } catch (IllegalArgumentException ex) {
+            vista.mostrarError("Error en formato de telefono: " + ex.getMessage());
         }
     }
 
