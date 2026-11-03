@@ -1,4 +1,4 @@
-package org.example.vista;
+package org.hackathon.agenda.vista;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
