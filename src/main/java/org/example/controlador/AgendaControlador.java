@@ -121,6 +121,11 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
         }
     }
 
+    private void limpiarCampos() {
+        vista.limpiarCampos();
+        vista.mostrarExito("Campos del formulario limpios.");
+    }
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
