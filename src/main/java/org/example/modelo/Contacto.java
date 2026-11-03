@@ -48,8 +48,10 @@ public class Contacto {
 
     // Validación Regex
     private void validarTelefono(String telefono) {
-        if (telefono == null || !telefono.matches("^(\\+\\d{1,3}\\s)?(\\d{3}\\s?){2}\\d{3}$")) {
-            throw new IllegalArgumentException("El teléfono no tiene un formato válido");
+        if (telefono == null || !telefono.matches("^(?:\\+57\\s?)?3[0-9]{9}$")) {
+            throw new IllegalArgumentException(
+                    "El teléfono debe ser un celular colombiano válido"
+            );
         }
     }
 
