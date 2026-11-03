@@ -36,6 +36,12 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
             anadirContacto();
         } else if (btnOrigen == vista.getBtnModificar()) {
             modificarTelefono();
+        } else if (btnOrigen == vista.getBtnEliminar()) {
+            eliminarContacto();
+        } else if (btnOrigen == vista.getBtnBuscar()) {
+            buscarContacto();
+        } else if (btnOrigen == vista.getBtnLimpiar()) {
+            limpiarCampos();
         }
     }
 
@@ -101,4 +107,6 @@ public class AgendaControlador implements ActionListener, ListSelectionListener 
     public void valueChanged(ListSelectionEvent e) {
 
     }
+
+
 }
