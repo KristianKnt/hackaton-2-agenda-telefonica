@@ -1,4 +1,4 @@
-package org.hackathon.agenda.modelo;
+package com.hackathon.agenda.modelo;
 
 import java.util.Objects;
 import java.util.Locale;
